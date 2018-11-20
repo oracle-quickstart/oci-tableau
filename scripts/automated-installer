@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 set -o nounset # exit script if trying to use an uninitialized variable
 set -o errexit # exit the script if any statement returns a non-true return value
 
@@ -306,6 +307,8 @@ check_arguments() {
   case "$package_file" in
     *rpm )
            version_string=$(rpm -qp --queryformat '%{NAME}\n' $package_file | sed -e "s/tableau-server-//")
+           #version_string=$(echo $package_file | sed  "s/.*tableau-server-//" | sed "s/.x86_64.rpm//")
+           echo $version_string
            ;;
     *deb )
            version_string=$(dpkg-deb -f $package_file Package | sed -e "s/tableau-server-//")
