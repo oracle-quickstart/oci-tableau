@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x 
 set -o nounset # exit script if trying to use an uninitialized variable
 set -o errexit # exit the script if any statement returns a non-true return value
 
@@ -562,7 +563,9 @@ run_tsm() {
   # See "Substring Replacement" in http://tldp.org/LDP/abs/html/string-manipulation.html#FTN.AEN6164
   local escaped_tsm_admin_pass="${tsm_admin_pass//\"/\\\"}"
   # Run tsm via su so log and session file goes in running user's homedir and not root's
-  su -c "set -a && source <(cat ${confwild}) &&  ${install_dir}/packages/customer-bin.${version_string}/tsm ${tabadminArgs} -u \"${tsm_admin_user}\" -s https://$(hostname):${controller_port}" "${running_username}"  <<<"${escaped_tsm_admin_pass}"
+  # su -c "set -a && source <(cat ${confwild}) &&  ${install_dir}/packages/customer-bin.${version_string}/tsm ${tabadminArgs} -u \"${tsm_admin_user}\" -s https://$(hostname):${controller_port}" "${running_username}"  <<<"${escaped_tsm_admin_pass}"
+  # the below works on ubuntu and centos/RHEL/Oracle Linux.  The above fails for Ubuntu, hence commented. 
+  su -c "set -a && . ${confwild} &&  ${install_dir}/packages/customer-bin.${version_string}/tsm ${tabadminArgs} -u \"${tsm_admin_user}\" -s https://$(hostname):${controller_port}" "${running_username}"  <<<"${escaped_tsm_admin_pass}"
 }
 
 setup() {
@@ -611,7 +614,7 @@ setup() {
   builtin echo "${tableau_server_admin_pass}" > "${temporary_password_file}"
 
   # Run tabcmd via su so log and session file goes in running user's homedir and not root's
-  su -c "set -a && source <(cat ${confwild}) && ${install_dir}/packages/customer-bin.${version_string}/tabcmd initialuser --server \"localhost:${gateway_port}\" --username \"${tableau_server_admin_user}\" --password-file \"${temporary_password_file}\"" "${running_username}"
+  su -c "set -a && . ${confwild} && ${install_dir}/packages/customer-bin.${version_string}/tabcmd initialuser --server \"localhost:${gateway_port}\" --username \"${tableau_server_admin_user}\" --password-file \"${temporary_password_file}\"" "${running_username}"
 
   # Delete temp file
   rm -f "${temporary_password_file}"
