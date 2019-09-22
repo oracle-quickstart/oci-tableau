@@ -1,7 +1,7 @@
 # oci-quickstart-tableau
 These are Terraform modules that deploy [Tableau](https://www.tableau.com/) on [Oracle Cloud Infrastructure (OCI)](https://cloud.oracle.com/en_US/cloud-infrastructure).  They are developed jointly by Oracle and Tableau. For instructions on how to use this material and details on getting support from the vendor that maintains this material, please contact them directly.
 
-# High Level Architecture
+## Architecture
 The Quick Start uses Hashicorp Terraform templates to automatically deploy a standalone or cluster (distributed) architecture for Tableau Server into a new private virtual cloud network (VCN) in your OCI tenancy/account.  You can use any OCI Compute shapes (Baremetal or Virtual machine), block storage or local NVMe to store Tableau data. This template will pre-install Oracle Instant Client  and Tableau Oracle driver for Oracle database and auto-configures tableau servers with Oracle Credentials Wallet file to integrate with Oracle Autonomous DataWarehouse (ADW),  Oracle Autonomous Transaction Processing (ATP) databases running on OCI. 
 
 ![](./images/architecture.PNG)
