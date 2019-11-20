@@ -27,7 +27,7 @@ Once the pre-requisites are in place, you will need to copy the templates from t
 ## Clone the Terraform template
 Now, you'll want a local copy of this repo.  You can make that with the commands:
 
-    git clone https://github.com/pvaldria/oci-tableau.git
+    git clone https://github.com/oracle-quickstart/oci-tableau.git
     cd oci-tableau
     ls
 
@@ -43,7 +43,9 @@ This is optional, but you can update the variables.tf to change compute shapes t
 
 Deploy using standard Terraform commands
 
-        terraform init && terraform plan && terraform apply
+        terraform init
+        terraform plan
+        terraform apply
 
 ## Terraform apply - output 
 ![](./images/Single-Node-TF-apply.PNG)
